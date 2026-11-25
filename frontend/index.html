@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GastoZen</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Tela de acesso -->
+  <main id="tela-login" class="login">
+    <section class="card login-box">
+      <h1>GastoZen</h1>
+      <p class="sub">Saiba para onde foi o seu dinheiro antes do mês acabar.</p>
+      <div class="abas">
+        <button id="aba-entrar" class="ativa" type="button">Entrar</button>
+        <button id="aba-cadastro" type="button">Criar conta</button>
+      </div>
+      <input id="a-nome" placeholder="Nome" autocomplete="name" hidden>
+      <input id="a-email" type="email" placeholder="E-mail" autocomplete="email">
+      <input id="a-senha" type="password" placeholder="Senha (mínimo 6 caracteres)" autocomplete="current-password">
+      <button id="a-enviar" class="primario" type="button">Entrar</button>
+      <p id="a-erro" class="erro" role="alert"></p>
+    </section>
+  </main>
+
+  <!-- App -->
+  <div id="tela-app" hidden>
+    <header class="topo">
+      <h1>GastoZen</h1>
+      <nav>
+        <button data-aba="resumo" class="ativa">Resumo</button>
+        <button data-aba="transacoes">Transações</button>
+        <button data-aba="categorias">Categorias</button>
+      </nav>
+      <div class="usuario"><span id="nome-usuario"></span><button id="sair" type="button">Sair</button></div>
+    </header>
+
+    <main class="conteudo">
+      <div class="mes"><label for="mes">Mês</label><input id="mes" type="month"></div>
+
+      <section id="aba-resumo">
+        <div class="totais">
+          <div class="card"><span>Receitas</span><strong id="t-receitas" class="verde"></strong></div>
+          <div class="card"><span>Despesas</span><strong id="t-despesas" class="vermelho"></strong></div>
+          <div class="card"><span>Saldo do mês</span><strong id="t-saldo"></strong></div>
+        </div>
+        <div id="alertas"></div>
+        <h2>Gastos por categoria</h2>
+        <div id="barras" class="card"></div>
+      </section>
+
+      <section id="aba-transacoes" hidden>
+        <form id="form-t" class="card form-linha">
+          <input id="t-desc" placeholder="Descrição" required>
+          <input id="t-valor" type="number" step="0.01" min="0.01" placeholder="Valor (R$)" required>
+          <input id="t-data" type="date" required>
+          <select id="t-cat" required></select>
+          <button class="primario" id="t-salvar">Adicionar</button>
+          <button type="button" id="t-cancelar" hidden>Cancelar</button>
+        </form>
+        <p id="t-erro" class="erro" role="alert"></p>
+        <div class="card tabela-wrap">
+          <table>
+            <thead><tr><th>Data</th><th>Descrição</th><th>Categoria</th><th class="dir">Valor</th><th></th></tr></thead>
+            <tbody id="lista-t"></tbody>
+          </table>
+          <p id="vazio-t" class="vazio" hidden>Nenhuma transação neste mês. Adicione a primeira acima.</p>
+        </div>
+      </section>
+
+      <section id="aba-categorias" hidden>
+        <form id="form-c" class="card form-linha">
+          <input id="c-nome" placeholder="Nome da categoria" required>
+          <select id="c-tipo"><option value="despesa">Despesa</option><option value="receita">Receita</option></select>
+          <input id="c-limite" type="number" step="0.01" min="0" placeholder="Limite mensal (opcional)">
+          <button class="primario">Adicionar</button>
+        </form>
+        <p id="c-erro" class="erro" role="alert"></p>
+        <div class="card tabela-wrap">
+          <table>
+            <thead><tr><th>Categoria</th><th>Tipo</th><th class="dir">Limite mensal</th><th></th></tr></thead>
+            <tbody id="lista-c"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
